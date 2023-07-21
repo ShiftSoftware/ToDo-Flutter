@@ -1,3 +1,4 @@
 abstract class TodoLocalDataSource {
-  void saveTodo(Map<String, dynamic> todo);
+  void saveTodo(String todo);
+  List<String>? getTodos();
 }

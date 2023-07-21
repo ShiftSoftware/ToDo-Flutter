@@ -1,3 +1,5 @@
+
+List<Todo> todoFromMap(todos)=>List.from(todos.map((x)=>Todo.fromLocalToEntity(x)));
 class Todo {
   final String title, description;
 

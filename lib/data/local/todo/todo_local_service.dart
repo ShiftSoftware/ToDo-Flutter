@@ -9,7 +9,18 @@ class TodoLocalService implements TodoLocalDataSource {
   const TodoLocalService(this.localStorage);
 
   @override
-  void saveTodo(Map<String, dynamic> todo) {
-    localStorage.setString("todos", jsonEncode(todo));
+  void saveTodo(String todo) {
+    final todos = getTodos();
+    if (todos == null || todo.isEmpty) {
+      localStorage.setStringList("todos", [todo]);
+      return;
+    }
+
+    localStorage.setStringList("todos", [todo, ...todos]);
+  }
+
+  @override
+  List<String>? getTodos() {
+    return localStorage.getStringList("todos");
   }
 }
