@@ -1,16 +1,19 @@
-# clean_todo
+# Clean Todo
 
-A new Flutter project.
+Flutter sample project based on clean architecture
 
-## Getting Started
+## Todos
 
-This project is a starting point for a Flutter application.
+ - Edit Todo 
+ - remove/delete Todo
+ - Clear all todos
+ - Adding Dates and Time and Status
+ - Sorting
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img src="./screenshots/Screenshot_1689945497.png" alt="Home screen" width="200"/>
+<img src="./screenshots/Screenshot_1689945500.png" alt="Add todo screen" width="200"/>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
