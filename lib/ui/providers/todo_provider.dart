@@ -39,4 +39,16 @@ class TodoProvider extends ChangeNotifier {
       _getTodos();
     }
   }
+
+  void deleteAll({bool updateTodo = false}) {
+    todoRepository.deleteAllTodos();
+
+    if (updateTodo) {
+      _getTodos();
+    }
+  }
+
+  bool get showDeleteAll => todosSize != 0;
+
+int get todosSize => todos.length;
 }

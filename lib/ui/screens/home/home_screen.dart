@@ -12,6 +12,51 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
+        actions: [
+          Consumer<TodoProvider>(builder: (context, value, child) {
+            if (!value.showDeleteAll) return const SizedBox();
+
+            return PopupMenuButton<String>(
+              initialValue: "",
+              onSelected: (String item) async {
+                if (item == "deleteAll") {
+                  final res = await showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("Delete All?"),
+                      content: const Text(
+                          "Are you sure you want to delete all todos?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                          child: const Text("Delete"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
+                          child: const Text("Dismiss"),
+                        ),
+                      ],
+                    ),
+                  );
+
+                  if (res != null && res) {
+                    context.read<TodoProvider>().deleteAll(updateTodo: true);
+                  }
+                }
+              },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                const PopupMenuItem<String>(
+                  value: "deleteAll",
+                  child: Text('Delete All'),
+                ),
+              ],
+            );
+          })
+        ],
       ),
       body: Consumer<TodoProvider>(
         builder: (context, TodoProvider todoProvider, child) {
@@ -38,13 +83,13 @@ class HomeScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).pop(true);
                           },
-                          child: Text("Delete"),
+                          child: const Text("Delete"),
                         ),
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(false);
                           },
-                          child: Text("Dismiss"),
+                          child: const Text("Dismiss"),
                         ),
                       ],
                     ),
