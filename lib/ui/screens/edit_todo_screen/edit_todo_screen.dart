@@ -1,5 +1,6 @@
 import 'package:clean_todo/domain/entity/todo_entity.dart';
 import 'package:clean_todo/ui/providers/todo_provider.dart';
+import 'package:clean_todo/util/runcatching.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -74,6 +75,18 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                 onPressed: () {
                   final validate = formKey.currentState?.validate() ?? false;
                   if (!validate) return;
+
+                  runCatching(
+                    callback: () async {
+                      return Future.value("abc");
+                    },
+                    success: (result) {
+                      print("Call back result: $result");
+                    },
+                    error: (error) {
+
+                    },
+                  );
 
                   final Todo updatedTodo = Todo(
                       title: formData[TITLE]!,

@@ -49,6 +49,5 @@ class TodoProvider extends ChangeNotifier {
   }
 
   bool get showDeleteAll => todosSize != 0;
-
-int get todosSize => todos.length;
+  int get todosSize => todos.length;
 }
