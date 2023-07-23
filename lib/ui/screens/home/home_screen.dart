@@ -26,8 +26,38 @@ class HomeScreen extends StatelessWidget {
               final todo = todos[index];
 
               return ListTile(
+                onLongPress: () async {
+                  final res = await showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("Delete Todo?"),
+                      content:
+                          Text("Are you sure you want to delete ${todo.title}"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                          child: Text("Delete"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
+                          child: Text("Dismiss"),
+                        ),
+                      ],
+                    ),
+                  );
+
+                  if (res != null && res) {
+                    todoProvider.deleteTodo(todo, updateTodo: true);
+                  }
+                },
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditTodoScreen(todo),));
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => EditTodoScreen(todo),
+                  ));
                 },
                 title: Text(todo.title),
                 subtitle: Text(todo.description),

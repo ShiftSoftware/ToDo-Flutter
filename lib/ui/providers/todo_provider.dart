@@ -24,6 +24,14 @@ class TodoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteTodo(Todo todo, {bool updateTodo = false}) {
+    todoRepository.deleteTodo(todo);
+
+    if (updateTodo) {
+      _getTodos();
+    }
+  }
+
   void updateTodo(Todo oldTodo, Todo todo, {bool updateTodo = false}) {
     todoRepository.updateTodo(oldTodo, todo);
 
