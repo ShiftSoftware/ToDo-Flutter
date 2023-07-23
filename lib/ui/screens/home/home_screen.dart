@@ -1,5 +1,6 @@
 import 'package:clean_todo/ui/providers/todo_provider.dart';
 import 'package:clean_todo/ui/screens/add_todo/add_todo_screen.dart';
+import 'package:clean_todo/ui/screens/edit_todo_screen/edit_todo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
       body: Consumer<TodoProvider>(
         builder: (context, TodoProvider todoProvider, child) {
           if (todoProvider.todos.isEmpty) {
-            return Center(child: const Text("No todos found"));
+            return const Center(child: Text("No todos found"));
           }
           final todos = todoProvider.todos;
 
@@ -25,6 +26,9 @@ class HomeScreen extends StatelessWidget {
               final todo = todos[index];
 
               return ListTile(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditTodoScreen(todo),));
+                },
                 title: Text(todo.title),
                 subtitle: Text(todo.description),
               );

@@ -23,4 +23,20 @@ class TodoRepositoryImpl implements TodoRepository {
     final map = todos.map((e) => jsonDecode(e));
     return todoFromMap(map);
   }
+
+  @override
+  void deleteAllTodos() {
+    todoLocalDataSource.deleteAllTodos();
+  }
+
+  @override
+  void deleteTodo(Todo todo) {
+    todoLocalDataSource.deleteTodo(jsonEncode(todo.toLocalDto()));
+  }
+
+  @override
+  void updateTodo(Todo oldTodo, Todo todo) {
+    todoLocalDataSource.updateTodo(
+        jsonEncode(oldTodo.toLocalDto()), jsonEncode(todo.toLocalDto()));
+  }
 }

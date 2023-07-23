@@ -7,12 +7,14 @@ class TodoProvider extends ChangeNotifier {
 
   List<Todo> todos = [];
 
-  TodoProvider(this.todoRepository);
+  TodoProvider(this.todoRepository) {
+    _getTodos();
+  }
 
   void saveTodo(Todo todo, {bool updateTodo = false}) {
     todoRepository.saveTodo(todo);
 
-    if(updateTodo){
+    if (updateTodo) {
       _getTodos();
     }
   }
@@ -20,5 +22,13 @@ class TodoProvider extends ChangeNotifier {
   void _getTodos() {
     todos = todoRepository.getTodos();
     notifyListeners();
+  }
+
+  void updateTodo(Todo oldTodo, Todo todo, {bool updateTodo = false}) {
+    todoRepository.updateTodo(oldTodo, todo);
+
+    if (updateTodo) {
+      _getTodos();
+    }
   }
 }
