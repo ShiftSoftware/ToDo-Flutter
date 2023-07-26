@@ -1,3 +1,4 @@
+import 'package:clean_todo/TestInterface.dart';
 import 'package:clean_todo/domain/entity/todo_entity.dart';
 import 'package:clean_todo/domain/repository/todo/todo_repository.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class TodoProvider extends ChangeNotifier {
 
   TodoProvider(this.todoRepository) {
     _getTodos();
+    testImpl();
   }
 
   void saveTodo(Todo todo, {bool updateTodo = false}) {
@@ -49,5 +51,35 @@ class TodoProvider extends ChangeNotifier {
   }
 
   bool get showDeleteAll => todosSize != 0;
+
   int get todosSize => todos.length;
+
+  void testImpl() async {
+    try {
+      TodoRepoImpl todoRepoImpl = TodoRepoImpl();
+
+
+      final res = await todoRepoImpl.getData();
+      print("Todo result:");
+      print(res.toMap());
+
+    } catch (e) {
+      print(e);
+    }
+  }
+}
+
+class TodoRepoImpl implements TodoRepo<TodoRemote> {
+  TodoRemoteDataSource<TodoRemote> testInterface = TodoRemoteDataSource();
+
+  @override
+  Future<TodoRemote> getData() {
+    return testInterface.getData(TodoRemote.fromMap);
+  }
+
+
+}
+
+abstract class TodoRepo<T> {
+  Future<T> getData();
 }
